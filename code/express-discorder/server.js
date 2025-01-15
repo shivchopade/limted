@@ -17,19 +17,14 @@ app.get("/", (req, res) => res.send(`
   </html>
 `));
 
-app.post("/github", (req, res) => {
-  const content = ":wave: Hi mom!";
-  const avatarUrl = "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif";
+app.post("/cashfree", (req, res) => {
+  const { data, type, event_time } = req.body;
+
+  const content = `Received event of type: ${type} at ${event_time} with data: ${JSON.stringify(data)}`;
+
   axios
     .post(process.env.DISCORD_WEBHOOK_URL, {
       content: content,
-      embeds: [
-        {
-          image: {
-            url: avatarUrl,
-          },
-        },
-      ],
     })
     .then((discordResponse) => {
       console.log("Success!");
